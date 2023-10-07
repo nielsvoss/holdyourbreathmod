@@ -8,7 +8,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +18,7 @@ public class HoldYourBreath implements ModInitializer {
 	public static final String MODID = "holdyourbreath";
     public static final Logger LOGGER = LoggerFactory.getLogger("holdyourbreath");
 
-	public BreathingManager breathingManager = new BreathingManager();
+	public static BreathingManager breathingManager = new BreathingManager();
 
 	@Override
 	public void onInitialize() {

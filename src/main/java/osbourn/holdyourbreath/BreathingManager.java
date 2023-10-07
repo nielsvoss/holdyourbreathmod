@@ -2,12 +2,11 @@ package osbourn.holdyourbreath;
 
 import net.minecraft.entity.player.PlayerEntity;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class BreathingManager {
     private final Map<UUID, BreathingState> breathingStates;
+    private final Set<UUID> drowningPlayers;
 
     public enum BreathingState {
         HOLDING_BREATH,
@@ -17,6 +16,7 @@ public class BreathingManager {
 
     public BreathingManager() {
         this.breathingStates = new HashMap<>();
+        this.drowningPlayers = new HashSet<>();
     }
 
     public BreathingState getBreathingState(PlayerEntity player) {
@@ -25,5 +25,17 @@ public class BreathingManager {
 
     public void setBreathingState(PlayerEntity player, BreathingState state) {
         this.breathingStates.put(player.getUuid(), state);
+    }
+
+    public void setDrowning(PlayerEntity player, boolean isDrowning) {
+        if (isDrowning) {
+            this.drowningPlayers.add(player.getUuid());
+        } else {
+            this.drowningPlayers.remove(player.getUuid());
+        }
+    }
+
+    public boolean isDrowning(PlayerEntity player) {
+        return this.drowningPlayers.contains(player.getUuid());
     }
 }
