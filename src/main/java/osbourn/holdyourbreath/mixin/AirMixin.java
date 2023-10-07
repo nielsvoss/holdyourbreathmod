@@ -9,17 +9,15 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import osbourn.holdyourbreath.BreathingManager;
 import osbourn.holdyourbreath.HoldYourBreath;
 
 @Mixin(LivingEntity.class)
 abstract class AirMixin extends Entity {
-    @Shadow protected int playerHitTimer;
-
     public AirMixin(EntityType<?> type, World world) {
         super(type, world);
     }
@@ -35,5 +33,15 @@ abstract class AirMixin extends Entity {
                 HoldYourBreath.breathingManager.setDrowning(player, false);
             }
         }
+    }
+
+    @Redirect(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;canBreatheInWater()Z"))
+    public boolean onlyReduceAirIfDrowning(LivingEntity instance) {
+        if (instance instanceof PlayerEntity player) {
+            if (!HoldYourBreath.breathingManager.isDrowning(player)) {
+                return true;
+            }
+        }
+        return instance.canBreatheInWater();
     }
 }
