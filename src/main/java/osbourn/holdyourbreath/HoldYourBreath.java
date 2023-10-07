@@ -19,6 +19,8 @@ public class HoldYourBreath implements ModInitializer {
 	public static final String MODID = "holdyourbreath";
     public static final Logger LOGGER = LoggerFactory.getLogger("holdyourbreath");
 
+	public BreathingManager breathingManager = new BreathingManager();
+
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -39,7 +41,11 @@ public class HoldYourBreath implements ModInitializer {
 		boolean isHoldingBreath = buf.readBoolean();
 
 		server.execute(() -> {
-			player.sendMessage(Text.literal(isHoldingBreath ? "Started holding breath" : "Stopped holding breath"));
+			if (isHoldingBreath) {
+				this.breathingManager.setBreathingState(player, BreathingManager.BreathingState.HOLDING_BREATH);
+			} else {
+				this.breathingManager.setBreathingState(player, BreathingManager.BreathingState.NOT_HOLDING_BREATH);
+			}
 		});
 	}
 }
