@@ -1,6 +1,7 @@
 package osbourn.holdyourbreath.mixin;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,6 +21,13 @@ import osbourn.holdyourbreath.HoldYourBreath;
 abstract class AirMixin extends Entity {
     public AirMixin(EntityType<?> type, World world) {
         super(type, world);
+    }
+
+    // TODO: Instead of this method, just refer directly to the one in LivingEntity
+    // Right now, doing this causes a stack overflow, likely due to infinite recursion
+    private int vanillaGetNextAirUnderwater(LivingEntity entity, int air) {
+        int i = EnchantmentHelper.getRespiration(entity);
+        return i > 0 && this.random.nextInt(i + 1) > 0 ? air : air - 1;
     }
 
     @Inject(method = "baseTick", at = @At("HEAD"))
@@ -43,5 +51,19 @@ abstract class AirMixin extends Entity {
             }
         }
         return instance.canBreatheInWater();
+    }
+
+    @Redirect(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getNextAirUnderwater(I)I"))
+    public int modifyAirLossSpeed(LivingEntity instance, int air) {
+        final int multiplier = 3;
+
+        int vanillaNextAir = vanillaGetNextAirUnderwater(instance, air);
+        if (instance instanceof PlayerEntity) {
+            int difference = air - vanillaNextAir;
+            int newAir = air - difference * multiplier;
+            return Math.max(newAir, -20);
+        } else {
+            return vanillaNextAir;
+        }
     }
 }
