@@ -5,6 +5,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -65,5 +66,13 @@ abstract class AirMixin extends Entity {
         } else {
             return vanillaNextAir;
         }
+    }
+
+    @Redirect(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
+    public boolean modifyDrowningDamage(LivingEntity instance, DamageSource source, float amount) {
+        if (!source.equals(instance.getDamageSources().drown())) return instance.damage(source, amount);
+
+        final int multiplier = 2;
+        return instance.damage(source, amount * multiplier);
     }
 }
