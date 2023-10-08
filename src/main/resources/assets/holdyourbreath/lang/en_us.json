@@ -1,4 +1,7 @@
 {
   "key.holdyourbreath.breathe": "Hold breath",
-  "category.holdyourbreath.keybindings": "Hold Your Breath"
+  "category.holdyourbreath.keybindings": "Hold Your Breath",
+  "holdyourbreath.midnightconfig.title": "Hold Your Breath Config",
+  "holdyourbreath.midnightconfig.airLossMultiplier": "Air loss multiplier",
+  "holdyourbreath.midnightconfig.drowningDamageMultiplier": "Drowning damage multiplier"
 }

@@ -1,5 +1,6 @@
 package osbourn.holdyourbreath;
 
+import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -28,6 +29,8 @@ public class HoldYourBreath implements ModInitializer {
 
 		ServerPlayNetworking.registerGlobalReceiver(HoldYourBreathNetworkingConstants.HOLD_BREATH_PACKET_ID,
 			this::receivePacket);
+
+		MidnightConfig.init(MODID, HoldYourBreathConfig.class);
 	}
 
 	private void receivePacket(MinecraftServer server,
