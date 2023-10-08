@@ -1,5 +1,6 @@
 package osbourn.holdyourbreath.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -38,16 +39,16 @@ abstract class AirMixin extends Entity {
         }
     }
 
-    @Redirect(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;canBreatheInWater()Z"))
-    public boolean onlyReduceAirIfDrowning(LivingEntity instance) {
+    @ModifyExpressionValue(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;canBreatheInWater()Z"))
+    public boolean onlyReduceAirIfDrowning(boolean originalReturnValue) {
         if (HoldYourBreathConfig.breathHoldingEnabled) {
-            if (instance instanceof PlayerEntity player) {
+            if ((Object)this instanceof PlayerEntity player) {
                 if (!HoldYourBreath.breathingManager.isDrowning(player)) {
                     return true;
                 }
             }
         }
-        return instance.canBreatheInWater();
+        return originalReturnValue;
     }
 
     @ModifyReturnValue(method = "getNextAirUnderwater", at = @At("RETURN"))
