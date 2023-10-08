@@ -6,15 +6,12 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import osbourn.holdyourbreath.BreathingManager;
 import osbourn.holdyourbreath.HoldYourBreath;
@@ -62,10 +59,8 @@ abstract class AirMixin extends Entity {
         }
     }
 
-    @Redirect(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
-    public boolean modifyDrowningDamage(LivingEntity instance, DamageSource source, float amount) {
-        if (!source.equals(instance.getDamageSources().drown())) return instance.damage(source, amount);
-
-        return instance.damage(source, amount * HoldYourBreathConfig.drowningDamageMultiplier);
+    @ModifyConstant(method = "baseTick", constant = @Constant(floatValue = 2.0F))
+    public float modifyDrowningDamage(float originalDamageAmount) {
+        return originalDamageAmount * HoldYourBreathConfig.drowningDamageMultiplier;
     }
 }
