@@ -3,7 +3,8 @@
 	"package": "osbourn.holdyourbreath.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"AirMixin"
+		"AirMixin",
+		"BuildingUnderwaterMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
