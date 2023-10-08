@@ -12,4 +12,6 @@ public class HoldYourBreathConfig extends MidnightConfig {
     public static int airLossMultiplier = 10;
     @Entry
     public static float drowningDamageMultiplier = 2.5F;
+    @Entry
+    public static boolean preventPlacingDoorsUnderwater = false;
 }

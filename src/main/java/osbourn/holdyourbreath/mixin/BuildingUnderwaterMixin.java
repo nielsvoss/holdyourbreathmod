@@ -10,6 +10,7 @@ import net.minecraft.item.ItemPlacementContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import osbourn.holdyourbreath.HoldYourBreathConfig;
 
 @Mixin(BlockItem.class)
 abstract class BuildingUnderwaterMixin extends Item {
@@ -23,8 +24,12 @@ abstract class BuildingUnderwaterMixin extends Item {
             method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemPlacementContext;canPlace()Z"))
     private boolean preventPlacingUnderwater(boolean original, ItemPlacementContext context) {
-        boolean isWater = context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.WATER);
-        boolean isForbiddenBlock = this.getBlock() instanceof DoorBlock;
-        return original && !(isWater && isForbiddenBlock);
+        if (HoldYourBreathConfig.preventPlacingDoorsUnderwater) {
+            boolean isWater = context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.WATER);
+            boolean isForbiddenBlock = this.getBlock() instanceof DoorBlock;
+            return original && !(isWater && isForbiddenBlock);
+        } else {
+            return original;
+        }
     }
 }
