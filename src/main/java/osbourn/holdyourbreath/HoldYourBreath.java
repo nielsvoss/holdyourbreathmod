@@ -39,9 +39,9 @@ public class HoldYourBreath implements ModInitializer {
 
 		server.execute(() -> {
 			if (isHoldingBreath) {
-				this.breathingManager.setBreathingState(player, BreathingManager.BreathingState.HOLDING_BREATH);
+				breathingManager.setBreathingState(player, BreathingManager.BreathingState.HOLDING_BREATH);
 			} else {
-				this.breathingManager.setBreathingState(player, BreathingManager.BreathingState.NOT_HOLDING_BREATH);
+				breathingManager.setBreathingState(player, BreathingManager.BreathingState.NOT_HOLDING_BREATH);
 			}
 		});
 	}
