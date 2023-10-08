@@ -56,7 +56,7 @@ abstract class AirMixin extends Entity {
 
     @Redirect(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getNextAirUnderwater(I)I"))
     public int modifyAirLossSpeed(LivingEntity instance, int air) {
-        final int multiplier = 3;
+        final int multiplier = 10;
 
         int vanillaNextAir = vanillaGetNextAirUnderwater(instance, air);
         if (instance instanceof PlayerEntity) {
@@ -72,7 +72,7 @@ abstract class AirMixin extends Entity {
     public boolean modifyDrowningDamage(LivingEntity instance, DamageSource source, float amount) {
         if (!source.equals(instance.getDamageSources().drown())) return instance.damage(source, amount);
 
-        final int multiplier = 2;
+        final float multiplier = 2.5F;
         return instance.damage(source, amount * multiplier);
     }
 }
