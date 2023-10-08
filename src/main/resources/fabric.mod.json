@@ -3,13 +3,12 @@
 	"id": "holdyourbreath",
 	"version": "${version}",
 	"name": "Hold Your Breath",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "When you go underwater, you need to hold your breath in real life. Press R (configurable) whenever you are holding your breath, and release it when you breathe (honor system). You need to hold your breath to avoid drowning.",
 	"authors": [
-		"Me!"
+		"Niels Voss"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/osbourn/holdyourbreathmod"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/holdyourbreath/icon.png",
