@@ -2,6 +2,8 @@
   "key.holdyourbreath.breathe": "Hold breath",
   "category.holdyourbreath.keybindings": "Hold Your Breath",
   "holdyourbreath.midnightconfig.title": "Hold Your Breath Config",
+  "holdyourbreath.midnightconfig.breathHoldingEnabledComment": "If \"Breath holding enabled\" is turned off, holding the \"Hold breath\" key won't prevent drowning.",
+  "holdyourbreath.midnightconfig.breathHoldingEnabled": "Breath holding enabled",
   "holdyourbreath.midnightconfig.airLossMultiplier": "Air loss multiplier",
   "holdyourbreath.midnightconfig.drowningDamageMultiplier": "Drowning damage multiplier"
 }

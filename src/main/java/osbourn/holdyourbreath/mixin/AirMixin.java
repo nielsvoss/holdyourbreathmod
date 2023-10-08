@@ -47,9 +47,11 @@ abstract class AirMixin extends Entity {
 
     @Redirect(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;canBreatheInWater()Z"))
     public boolean onlyReduceAirIfDrowning(LivingEntity instance) {
-        if (instance instanceof PlayerEntity player) {
-            if (!HoldYourBreath.breathingManager.isDrowning(player)) {
-                return true;
+        if (HoldYourBreathConfig.breathHoldingEnabled) {
+            if (instance instanceof PlayerEntity player) {
+                if (!HoldYourBreath.breathingManager.isDrowning(player)) {
+                    return true;
+                }
             }
         }
         return instance.canBreatheInWater();
