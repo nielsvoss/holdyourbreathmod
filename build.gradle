@@ -47,6 +47,7 @@ dependencies {
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 	include (modImplementation "maven.modrinth:midnightlib:1.4.1-fabric")
+	include (implementation (annotationProcessor ("io.github.llamalad7:mixinextras-fabric:0.2.0-rc.5")))
 }
 
 processResources {
