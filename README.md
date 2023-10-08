@@ -18,6 +18,11 @@ losing air.
 If the `R` key is released underwater, pressing it again will not stop air loss.
 You can think of this as exhaling underwater causing your mouth to fill up with water, preventing breathing.
 
+## Miscellaneous Features
+
+As an option in the config, you can prevent doors from being placed underwater to make air pockets.
+This is disabled by default.
+
 ## License
 
 Hold Your Breath is licensed under the MIT License. This means you can do mostly whatever you would like with this mod.
