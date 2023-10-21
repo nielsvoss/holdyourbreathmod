@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import osbourn.holdyourbreath.HoldYourBreath;
 import osbourn.holdyourbreath.HoldYourBreathClient;
 import osbourn.holdyourbreath.HoldYourBreathConfig;
 
@@ -21,12 +22,14 @@ abstract class AirMixinClient extends Entity {
      * This method is for display only. The actual logic of when the player takes drowning damage is calculated on the
      * server side. See the similarly named method in AirMixin.
      */
-    @ModifyExpressionValue(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;canBreatheInWater()Z"))
-    public boolean onlyReduceAirIfDrowning(boolean originalReturnValue) {
+    @ModifyExpressionValue(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getNextAirUnderwater(I)I"))
+    public int onlyReduceAirIfDrowning(int originalReturnValue) {
         if (HoldYourBreathConfig.breathHoldingEnabled) {
-            if ((Object)this instanceof PlayerEntity player) {
-                if (!HoldYourBreathClient.isDrowning) {
-                    return true;
+            if (this.getWorld().isClient()) {
+                if ((Object) this instanceof PlayerEntity) {
+                    if (!HoldYourBreathClient.isDrowning) {
+                        return this.getAir();
+                    }
                 }
             }
         }
