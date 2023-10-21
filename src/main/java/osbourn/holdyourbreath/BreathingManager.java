@@ -32,8 +32,8 @@ public class BreathingManager {
      */
     public boolean isHoldingBreath(PlayerEntity player) {
         boolean activelyHoldingBreath = this.getBreathingState(player) == BreathingState.HOLDING_BREATH;
-        boolean joinedRecently = player.age < HoldYourBreathConfig.safeTicksAfterLogin;
-        return activelyHoldingBreath || joinedRecently;
+        boolean joinedOrRespawnedRecently = player.age < HoldYourBreathConfig.safeTicksAfterLoginOrRespawn;
+        return activelyHoldingBreath || joinedOrRespawnedRecently;
     }
 
     public void setDrowning(PlayerEntity player, boolean isDrowning) {
