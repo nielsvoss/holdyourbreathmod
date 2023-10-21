@@ -67,6 +67,12 @@ abstract class AirMixin extends Entity {
 
     @ModifyConstant(method = "baseTick", constant = @Constant(floatValue = 2.0F))
     public float modifyDrowningDamage(float originalDamageAmount) {
+        // Make player move downward
+        if (!this.getWorld().isClient() && HoldYourBreathConfig.drowningDamageDownwardForce != 0.0F) {
+            this.addVelocity(0.0, -HoldYourBreathConfig.drowningDamageDownwardForce, 0.0);
+            this.velocityModified = true;
+        }
+
         return originalDamageAmount * HoldYourBreathConfig.drowningDamageMultiplier;
     }
 }
