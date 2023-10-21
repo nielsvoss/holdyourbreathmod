@@ -26,6 +26,15 @@ public class BreathingManager {
         this.breathingStates.put(player.getUuid(), state);
     }
 
+    /**
+     * Like getBreathingState, but accounts for more situations (like players that recently joined).
+     */
+    public boolean isHoldingBreath(PlayerEntity player) {
+        boolean activelyHoldingBreath = this.getBreathingState(player) == BreathingState.HOLDING_BREATH;
+        boolean joinedRecently = player.age < HoldYourBreathConfig.safeTicksAfterLogin;
+        return activelyHoldingBreath || joinedRecently;
+    }
+
     public void setDrowning(PlayerEntity player, boolean isDrowning) {
         if (isDrowning) {
             this.drowningPlayers.add(player.getUuid());

@@ -6,5 +6,6 @@
   "holdyourbreath.midnightconfig.breathHoldingEnabled": "Breath holding enabled",
   "holdyourbreath.midnightconfig.airLossMultiplier": "Air loss multiplier",
   "holdyourbreath.midnightconfig.drowningDamageMultiplier": "Drowning damage multiplier",
-  "holdyourbreath.midnightconfig.preventPlacingDoorsUnderwater": "Prevent placing doors underwater"
+  "holdyourbreath.midnightconfig.preventPlacingDoorsUnderwater": "Prevent placing doors underwater",
+  "holdyourbreath.midnightconfig.safeTicksAfterLogin": "Number of safe ticks after login"
 }

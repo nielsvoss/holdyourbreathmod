@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import osbourn.holdyourbreath.BreathingManager;
 import osbourn.holdyourbreath.HoldYourBreath;
 import osbourn.holdyourbreath.HoldYourBreathConfig;
 
@@ -27,7 +26,7 @@ abstract class AirMixin extends Entity {
     public void recordDrowning(CallbackInfo ci) {
         if ((Object)this instanceof PlayerEntity player) {
             if (this.isSubmergedIn(FluidTags.WATER) && !this.getWorld().getBlockState(BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ())).isOf(Blocks.BUBBLE_COLUMN)) {
-                if (HoldYourBreath.breathingManager.getBreathingState(player) != BreathingManager.BreathingState.HOLDING_BREATH) {
+                if (!HoldYourBreath.breathingManager.isHoldingBreath(player)) {
                     HoldYourBreath.breathingManager.setDrowning(player, true);
                 }
             } else {
