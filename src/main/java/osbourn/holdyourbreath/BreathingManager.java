@@ -1,6 +1,7 @@
 package osbourn.holdyourbreath;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.*;
 
@@ -36,10 +37,14 @@ public class BreathingManager {
     }
 
     public void setDrowning(PlayerEntity player, boolean isDrowning) {
+        boolean didUpdate;
         if (isDrowning) {
-            this.drowningPlayers.add(player.getUuid());
+            didUpdate = this.drowningPlayers.add(player.getUuid());
         } else {
-            this.drowningPlayers.remove(player.getUuid());
+            didUpdate = this.drowningPlayers.remove(player.getUuid());
+        }
+        if (didUpdate) {
+            HoldYourBreath.sendDrowningPacket((ServerPlayerEntity) player, isDrowning);
         }
     }
 

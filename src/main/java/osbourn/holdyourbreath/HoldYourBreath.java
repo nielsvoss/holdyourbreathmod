@@ -3,6 +3,7 @@ package osbourn.holdyourbreath;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
@@ -47,5 +48,11 @@ public class HoldYourBreath implements ModInitializer {
 				breathingManager.setBreathingState(player, BreathingManager.BreathingState.NOT_HOLDING_BREATH);
 			}
 		});
+	}
+
+	public static void sendDrowningPacket(ServerPlayerEntity player, boolean isPlayerDrowning) {
+		PacketByteBuf buf = PacketByteBufs.create();
+		buf.writeBoolean(isPlayerDrowning);
+		ServerPlayNetworking.send(player, HoldYourBreathNetworkingConstants.DROWNING_PACKET_ID, buf);
 	}
 }

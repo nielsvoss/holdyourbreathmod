@@ -15,6 +15,11 @@ public class HoldYourBreathClient implements ClientModInitializer {
 	private static KeyBinding breatheKeyBinding;
 	private static boolean isHoldingBreath = false;
 
+	/**
+	 * False until the server says we are drowning
+	 */
+	public static boolean isDrowning = false;
+
 	@Override
 	public void onInitializeClient() {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
@@ -34,6 +39,11 @@ public class HoldYourBreathClient implements ClientModInitializer {
 			}
 			isHoldingBreath = breatheKeyBinding.isPressed();
 		});
+
+		ClientPlayNetworking.registerGlobalReceiver(HoldYourBreathNetworkingConstants.DROWNING_PACKET_ID,
+				(client, handler, buf, responseSender) -> {
+					isDrowning = buf.readBoolean();
+				});
 	}
 
 	private void startHoldingBreath(MinecraftClient client) {

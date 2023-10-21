@@ -24,23 +24,30 @@ abstract class AirMixin extends Entity {
 
     @Inject(method = "baseTick", at = @At("HEAD"))
     public void recordDrowning(CallbackInfo ci) {
-        if ((Object)this instanceof PlayerEntity player) {
-            if (this.isSubmergedIn(FluidTags.WATER) && !this.getWorld().getBlockState(BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ())).isOf(Blocks.BUBBLE_COLUMN)) {
-                if (!HoldYourBreath.breathingManager.isHoldingBreath(player)) {
-                    HoldYourBreath.breathingManager.setDrowning(player, true);
+        if (!this.getWorld().isClient()) {
+            if ((Object) this instanceof PlayerEntity player) {
+                if (this.isSubmergedIn(FluidTags.WATER) && !this.getWorld().getBlockState(BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ())).isOf(Blocks.BUBBLE_COLUMN)) {
+                    if (!HoldYourBreath.breathingManager.isHoldingBreath(player)) {
+                        HoldYourBreath.breathingManager.setDrowning(player, true);
+                    }
+                } else {
+                    HoldYourBreath.breathingManager.setDrowning(player, false);
                 }
-            } else {
-                HoldYourBreath.breathingManager.setDrowning(player, false);
             }
         }
     }
 
+    /**
+     * Also see the similarly named method in AirMixinClient, which is for display only.
+     */
     @ModifyExpressionValue(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;canBreatheInWater()Z"))
     public boolean onlyReduceAirIfDrowning(boolean originalReturnValue) {
         if (HoldYourBreathConfig.breathHoldingEnabled) {
-            if ((Object)this instanceof PlayerEntity player) {
-                if (!HoldYourBreath.breathingManager.isDrowning(player)) {
-                    return true;
+            if (!this.getWorld().isClient()) {
+                if ((Object) this instanceof PlayerEntity player) {
+                    if (!HoldYourBreath.breathingManager.isDrowning(player)) {
+                        return true;
+                    }
                 }
             }
         }
