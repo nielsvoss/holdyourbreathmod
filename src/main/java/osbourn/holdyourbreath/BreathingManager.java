@@ -10,8 +10,7 @@ public class BreathingManager {
 
     public enum BreathingState {
         HOLDING_BREATH,
-        NOT_HOLDING_BREATH,
-        UNKNOWN
+        NOT_HOLDING_BREATH
     }
 
     public BreathingManager() {
@@ -20,7 +19,7 @@ public class BreathingManager {
     }
 
     public BreathingState getBreathingState(PlayerEntity player) {
-         return this.breathingStates.getOrDefault(player.getUuid(), BreathingState.UNKNOWN);
+         return this.breathingStates.getOrDefault(player.getUuid(), BreathingState.NOT_HOLDING_BREATH);
     }
 
     public void setBreathingState(PlayerEntity player, BreathingState state) {
