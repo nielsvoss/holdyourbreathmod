@@ -18,6 +18,14 @@ losing air.
 If the `R` key is released underwater, pressing it again will not stop air loss.
 You can think of this as exhaling underwater causing your mouth to fill up with water, preventing breathing.
 
+There is an option in the config to make the `R` key into a toggle rather than something you have to hold down.
+This option can be set separately by each player.
+This does make it easier for players to cheat, but it doesn't allow them to do anything that they couldn't have already
+accomplished with a program like AutoHotKey.
+Since the mod already operates on an honor system, this isn't that big of a deal.
+There are several legitimate reasons to use this feature, such as a slow connection, but please ask a server admin
+before setting this option to "true" on a server.
+
 ## Miscellaneous Features
 
 As an option in the config, you can prevent doors from being placed underwater to make air pockets.

@@ -31,13 +31,24 @@ public class HoldYourBreathClient implements ClientModInitializer {
 		));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (breatheKeyBinding.isPressed() && !isHoldingBreath) {
-				startHoldingBreath(client);
+			if (HoldYourBreathConfig.toggleBreathing) {
+				if (breatheKeyBinding.wasPressed()) {
+					isHoldingBreath = !isHoldingBreath;
+					if (isHoldingBreath) {
+						startHoldingBreath(client);
+					} else {
+						stopHoldingBreath(client);
+					}
+				}
+			} else {
+				if (breatheKeyBinding.isPressed() && !isHoldingBreath) {
+					startHoldingBreath(client);
+				}
+				if (!breatheKeyBinding.isPressed() && isHoldingBreath) {
+					stopHoldingBreath(client);
+				}
+				isHoldingBreath = breatheKeyBinding.isPressed();
 			}
-			if (!breatheKeyBinding.isPressed() && isHoldingBreath) {
-				stopHoldingBreath(client);
-			}
-			isHoldingBreath = breatheKeyBinding.isPressed();
 		});
 
 		ClientPlayNetworking.registerGlobalReceiver(HoldYourBreathNetworkingConstants.DROWNING_PACKET_ID,
