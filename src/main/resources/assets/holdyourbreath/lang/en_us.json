@@ -1,7 +1,10 @@
 {
   "key.holdyourbreath.breathe": "Hold breath",
   "category.holdyourbreath.keybindings": "Hold Your Breath",
+  "holdyourbreath.midnightconfig.category.server": "Server-Side Config",
+  "holdyourbreath.midnightconfig.category.client": "Client-Side Config",
   "holdyourbreath.midnightconfig.title": "Hold Your Breath Config",
+  "holdyourbreath.midnightconfig.serverSectionComment": "Unless you are in singleplayer or the host of a LAN world, changing these options here will have no effect, except maybe causing the air bar to desync.\nUse the server config instead. It's still best to keep this synced with the client to prevent the air bar from desyncing.",
   "holdyourbreath.midnightconfig.breathHoldingEnabledComment": "If \"Breath holding enabled\" is turned off, holding the \"Hold breath\" key won't prevent drowning.",
   "holdyourbreath.midnightconfig.breathHoldingEnabled": "Breath holding enabled",
   "holdyourbreath.midnightconfig.airLossMultiplier": "Air loss multiplier",
@@ -11,6 +14,7 @@
   "holdyourbreath.midnightconfig.allowRecoveringBreathUnderwater": "Allow recovering breath underwater",
   "holdyourbreath.midnightconfig.allowRecoveringBreathUnderwater.tooltip": "If false (default), once a player releases the breathing key underwater, they will continue to drown even if they re-press it.",
   "holdyourbreath.midnightconfig.preventPlacingDoorsUnderwater": "Prevent placing doors underwater",
+  "holdyourbreath.midnightconfig.clientSectionComment": "These options are client-side only and can be set separately for each player. They will not have an effect if set on the server.",
   "holdyourbreath.midnightconfig.toggleBreathingComment": "If \"Toggle breathing\" is enabled, then instead of holding down the \"Hold breath\" key, it will toggle whether or not you are breathing.\nPlease ask your server admin before using this option.",
   "holdyourbreath.midnightconfig.toggleBreathing": "Toggle breathing"
 }

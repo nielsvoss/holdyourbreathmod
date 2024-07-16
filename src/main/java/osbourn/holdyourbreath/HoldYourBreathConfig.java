@@ -3,26 +3,32 @@ package osbourn.holdyourbreath;
 import eu.midnightdust.lib.config.MidnightConfig;
 
 public class HoldYourBreathConfig extends MidnightConfig {
-    @Comment
+    @Comment(category = "server")
+    @SuppressWarnings("unused")
+    public static Comment serverSectionComment;
+    @Comment(category = "server")
     @SuppressWarnings("unused")
     public static Comment breathHoldingEnabledComment;
-    @Entry
+    @Entry(category = "server")
     public static boolean breathHoldingEnabled = true;
-    @Entry
+    @Entry(category = "server")
     public static int airLossMultiplier = 10;
-    @Entry
+    @Entry(category = "server")
     public static float drowningDamageMultiplier = 2.5F;
-    @Entry
+    @Entry(category = "server")
     public static int safeTicksAfterLoginOrRespawn = 100;
-    @Entry(min = -Double.MAX_VALUE)
+    @Entry(category = "server", min = -Double.MAX_VALUE)
     public static double drowningDamageDownwardForce = 0.0;
-    @Entry
+    @Entry(category = "server")
     public static boolean allowRecoveringBreathUnderwater = false;
-    @Entry
+    @Entry(category = "server")
     public static boolean preventPlacingDoorsUnderwater = false;
-    @Comment
+    @Comment(category = "client")
+    @SuppressWarnings("unused")
+    public static Comment clientSectionComment;
+    @Comment(category = "client")
     @SuppressWarnings("unused")
     public static Comment toggleBreathingComment;
-    @Entry
+    @Entry(category = "client")
     public static boolean toggleBreathing;
 }
