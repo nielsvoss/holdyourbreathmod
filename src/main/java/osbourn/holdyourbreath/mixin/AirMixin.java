@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import osbourn.holdyourbreath.HoldYourBreath;
@@ -19,6 +20,7 @@ abstract class AirMixin extends Entity {
         super(type, world);
     }
 
+    @Unique
     private boolean holdYourBreath_wasPlayerUnderwaterThisTick = false;
 
     @Inject(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getNextAirUnderwater(I)I"))
