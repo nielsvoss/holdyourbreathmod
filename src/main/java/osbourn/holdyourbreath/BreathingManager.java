@@ -7,6 +7,10 @@ import java.util.*;
 
 public class BreathingManager {
     private final Map<UUID, BreathingState> breathingStates;
+
+    /**
+     * Tracks the players that have released their breath since going underwater.
+     */
     private final Set<UUID> drowningPlayers;
 
     public enum BreathingState {
@@ -19,6 +23,9 @@ public class BreathingManager {
         this.drowningPlayers = new HashSet<>();
     }
 
+    /**
+     * In most cases, you should use isHoldingBreath instead
+     */
     public BreathingState getBreathingState(PlayerEntity player) {
          return this.breathingStates.getOrDefault(player.getUuid(), BreathingState.NOT_HOLDING_BREATH);
     }

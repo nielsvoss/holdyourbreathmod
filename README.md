@@ -17,6 +17,7 @@ losing air.
 
 If the `R` key is released underwater, pressing it again will not stop air loss.
 You can think of this as exhaling underwater causing your mouth to fill up with water, preventing breathing.
+This can be changed in the config.
 
 There is an option in the config to make the `R` key into a toggle rather than something you have to hold down.
 This option can be set separately by each player.

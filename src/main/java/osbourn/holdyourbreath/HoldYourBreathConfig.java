@@ -17,6 +17,8 @@ public class HoldYourBreathConfig extends MidnightConfig {
     @Entry(min = -Double.MAX_VALUE)
     public static double drowningDamageDownwardForce = 0.0;
     @Entry
+    public static boolean allowRecoveringBreathUnderwater = false;
+    @Entry
     public static boolean preventPlacingDoorsUnderwater = false;
     @Comment
     @SuppressWarnings("unused")

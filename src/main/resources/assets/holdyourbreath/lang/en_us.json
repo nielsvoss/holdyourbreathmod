@@ -8,6 +8,8 @@
   "holdyourbreath.midnightconfig.drowningDamageMultiplier": "Drowning damage multiplier",
   "holdyourbreath.midnightconfig.safeTicksAfterLoginOrRespawn": "Number of safe ticks after login or respawn",
   "holdyourbreath.midnightconfig.drowningDamageDownwardForce": "Downward force upon drowning damage",
+  "holdyourbreath.midnightconfig.allowRecoveringBreathUnderwater": "Allow recovering breath underwater",
+  "holdyourbreath.midnightconfig.allowRecoveringBreathUnderwater.tooltip": "If false (default), once a player releases the breathing key underwater, they will continue to drown even if they re-press it.",
   "holdyourbreath.midnightconfig.preventPlacingDoorsUnderwater": "Prevent placing doors underwater",
   "holdyourbreath.midnightconfig.toggleBreathingComment": "If \"Toggle breathing\" is enabled, then instead of holding down the \"Hold breath\" key, it will toggle whether or not you are breathing.\nPlease ask your server admin before using this option.",
   "holdyourbreath.midnightconfig.toggleBreathing": "Toggle breathing"

@@ -40,7 +40,13 @@ abstract class AirMixin extends Entity {
         if (!this.getWorld().isClient()) {
             if ((Object) this instanceof PlayerEntity player) {
                 if (holdYourBreath_wasPlayerUnderwaterThisTick) {
+                    // The player might still be underwater when we set this to false, but in that case it will probably
+                    // get set to true next tick by recordDrowning
                     holdYourBreath_wasPlayerUnderwaterThisTick = false;
+
+                    if (HoldYourBreathConfig.allowRecoveringBreathUnderwater && HoldYourBreath.breathingManager.isHoldingBreath(player)) {
+                        HoldYourBreath.breathingManager.setDrowning(player, false);
+                    }
                 } else {
                     HoldYourBreath.breathingManager.setDrowning(player, false);
                 }
