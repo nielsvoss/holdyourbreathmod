@@ -4,11 +4,9 @@ import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,32 +25,25 @@ public class HoldYourBreath implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+		PayloadTypeRegistry.playC2S().register(HoldBreathPayload.ID, HoldBreathPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(DrowningPayload.ID, DrowningPayload.CODEC);
 
-		ServerPlayNetworking.registerGlobalReceiver(HoldYourBreathNetworkingConstants.HOLD_BREATH_PACKET_ID,
-			this::receivePacket);
+		ServerPlayNetworking.registerGlobalReceiver(HoldBreathPayload.ID, this::receivePacket);
 
 		MidnightConfig.init(MODID, HoldYourBreathConfig.class);
 	}
 
-	private void receivePacket(MinecraftServer server,
-							   ServerPlayerEntity player,
-							   ServerPlayNetworkHandler handler,
-							   PacketByteBuf buf,
-							   PacketSender responseSender) {
-		boolean isHoldingBreath = buf.readBoolean();
-
-		server.execute(() -> {
-			if (isHoldingBreath) {
-				breathingManager.setBreathingState(player, BreathingManager.BreathingState.HOLDING_BREATH);
+	private void receivePacket(HoldBreathPayload payload, ServerPlayNetworking.Context context) {
+		context.server().execute(() -> {
+			if (payload.isHoldingBreath()) {
+				breathingManager.setBreathingState(context.player(), BreathingManager.BreathingState.HOLDING_BREATH);
 			} else {
-				breathingManager.setBreathingState(player, BreathingManager.BreathingState.NOT_HOLDING_BREATH);
+				breathingManager.setBreathingState(context.player(), BreathingManager.BreathingState.NOT_HOLDING_BREATH);
 			}
 		});
 	}
 
 	public static void sendDrowningPacket(ServerPlayerEntity player, boolean isPlayerDrowning) {
-		PacketByteBuf buf = PacketByteBufs.create();
-		buf.writeBoolean(isPlayerDrowning);
-		ServerPlayNetworking.send(player, HoldYourBreathNetworkingConstants.DROWNING_PACKET_ID, buf);
+		ServerPlayNetworking.send(player, new DrowningPayload(isPlayerDrowning));
 	}
 }

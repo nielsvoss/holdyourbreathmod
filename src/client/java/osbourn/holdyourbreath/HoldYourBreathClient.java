@@ -4,11 +4,9 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
 
 public class HoldYourBreathClient implements ClientModInitializer {
@@ -51,21 +49,17 @@ public class HoldYourBreathClient implements ClientModInitializer {
 			}
 		});
 
-		ClientPlayNetworking.registerGlobalReceiver(HoldYourBreathNetworkingConstants.DROWNING_PACKET_ID,
-				(client, handler, buf, responseSender) -> {
-					isDrowning = buf.readBoolean();
+		ClientPlayNetworking.registerGlobalReceiver(DrowningPayload.ID,
+				(payload, context) -> {
+					isDrowning = payload.isDrowning();
 				});
 	}
 
 	private void startHoldingBreath(MinecraftClient client) {
-		PacketByteBuf buf = PacketByteBufs.create();
-		buf.writeBoolean(true);
-		ClientPlayNetworking.send(HoldYourBreathNetworkingConstants.HOLD_BREATH_PACKET_ID, buf);
+		ClientPlayNetworking.send(new HoldBreathPayload(true));
 	}
 
 	private void stopHoldingBreath(MinecraftClient client) {
-		PacketByteBuf buf = PacketByteBufs.create();
-		buf.writeBoolean(false);
-		ClientPlayNetworking.send(HoldYourBreathNetworkingConstants.HOLD_BREATH_PACKET_ID, buf);
+		ClientPlayNetworking.send(new HoldBreathPayload(false));
 	}
 }
