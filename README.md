@@ -1,6 +1,6 @@
 # Hold Your Breath - A Minecraft Mod
 
-A Minecraft mod for Fabric 1.20.1 which makes players hold their breath in real life when they go underwater.
+A Minecraft mod for Fabric 1.20.1 and 1.21 which makes players hold their breath in real life when they go underwater.
 
 ## Breath Holding
 
